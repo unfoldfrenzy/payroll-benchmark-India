@@ -1,0 +1,10 @@
+{
+  "name": "smb-payroll-benchmark",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "scrape": "node scripts/scrape-sources.js",
+    "build": "cd frontend && npm ci && npm run build && cd .. && rm -rf docs/* && mkdir -p docs && cp -r frontend/build/* docs/",
+    "start:frontend": "cd frontend && npm ci && npm start"
+  }
+}
