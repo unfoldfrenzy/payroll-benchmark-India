@@ -1,5 +1,0 @@
-/* Minimal CSS for readability */
-body { margin: 0; padding: 0; background: #fff; color: #111; }
-input { padding: 8px; border: 1px solid #ddd; border-radius: 4px; }
-button { background: #0366d6; color: #fff; border: none; border-radius: 4px; cursor: pointer; }
-button:disabled { opacity: 0.6; }
