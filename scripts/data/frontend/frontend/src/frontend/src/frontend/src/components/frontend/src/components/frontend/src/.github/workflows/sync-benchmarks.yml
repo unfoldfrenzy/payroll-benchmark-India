@@ -1,0 +1,39 @@
+name: Sync Benchmarks (build & commit)
+
+on:
+  schedule:
+    - cron: "0 2 * * *" # daily at 02:00 UTC
+  workflow_dispatch:
+
+jobs:
+  scrape-and-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+
+      - name: Install root deps (if any)
+        run: npm ci
+
+      - name: Run scraper to produce data/benchmarks.json
+        run: npm run scrape
+
+      - name: Build frontend and copy to docs/
+        run: npm run build
+
+      - name: Commit updated docs/ and data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "actions@github.com"
+          git add docs data/benchmarks.json || true
+          git commit -m "chore: update benchmarks and build site [skip ci]" || echo "no changes to commit"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
