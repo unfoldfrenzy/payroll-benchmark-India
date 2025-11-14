@@ -1,0 +1,28 @@
+[
+  {
+    "id": "our-product",
+    "is_ours": true,
+    "name": "AcmePayroll (You)",
+    "price_per_emp": 50,
+    "compliance_coverage_pct": 95,
+    "onboarding_days": 3,
+    "bank_integrations": 5,
+    "mobile_apps": true,
+    "evidence": [
+      { "type": "pricing_page", "url": "https://acmepayroll.example/pricing", "fetched_at": "2025-11-14T16:31:57Z" }
+    ]
+  },
+  {
+    "id": "competitor-1",
+    "is_ours": false,
+    "name": "CompPayroll A",
+    "price_per_emp": 75,
+    "compliance_coverage_pct": 82,
+    "onboarding_days": 10,
+    "bank_integrations": 3,
+    "mobile_apps": false,
+    "evidence": [
+      { "type": "pricing_page", "url": "https://comppayroll.example/pricing", "fetched_at": "2025-11-13T20:40:00Z" }
+    ]
+  }
+]
