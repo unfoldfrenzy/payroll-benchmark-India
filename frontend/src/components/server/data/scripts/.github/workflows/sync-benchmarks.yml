@@ -1,0 +1,30 @@
+# Runs nightly; simple approach to keep benchmarks updated in repo.
+name: Sync Benchmarks
+
+on:
+  schedule:
+    - cron: "0 2 * * *" # daily at 02:00 UTC
+  workflow_dispatch:
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - name: Install deps
+        run: npm ci
+      - name: Run scrapers
+        run: node scripts/scrape-sources.js
+      - name: Commit results
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "actions@github.com"
+          git add data/benchmarks.json
+          git commit -m "chore: update benchmarks [skip ci]" || echo "no changes"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
